@@ -1,6 +1,8 @@
-﻿namespace Sprakkompis.Web.Features.Identity.Register;
+﻿using Sprakkompis.Web.Features.Identity.Login;
 
-public class RegisterService(HttpClient _httpclient)
+namespace Sprakkompis.Web.Features.Identity.Register;
+
+public class RegisterService(HttpClient _httpclient, LoginService _loginService)
 {
     public async Task<RegisterResult> RegisterAsync(string email, string password)
     {
@@ -14,7 +16,18 @@ public class RegisterService(HttpClient _httpclient)
 
             if (response.IsSuccessStatusCode)
             {
-                return new RegisterResult(true);
+                var loginResult = await _loginService.LoginAsync(email, password);
+                if (loginResult.Success)
+                {
+                    return new RegisterResult(true);
+                }
+                else
+                {
+                    return new RegisterResult(true)
+                    {
+                        Errors = new[] { "Registration successful, but automatic login failed." }
+                    };
+                }
             }
 
             var errorContent = await response.Content.ReadFromJsonAsync<ErrorResponse>();

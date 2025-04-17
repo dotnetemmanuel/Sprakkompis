@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Sprakkompis.Web.Features.Identity.Register;
+﻿namespace Sprakkompis.Web.Features.Identity.Register;
 
 public class RegisterService(HttpClient _httpclient)
 {
@@ -16,33 +14,27 @@ public class RegisterService(HttpClient _httpclient)
 
             if (response.IsSuccessStatusCode)
             {
-                return new RegisterResult { Success = true };
+                return new RegisterResult(true);
             }
 
             var errorContent = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-            return new RegisterResult
+            return new RegisterResult(false)
             {
-                Success = false,
                 Errors = errorContent?.Errors ?? new[] { "Registration failed" }
             };
         }
         catch (Exception ex)
         {
-            return new RegisterResult
+            return new RegisterResult(false)
             {
-                Success = false,
                 Errors = new[] { ex.Message }
             };
         }
     }
-    private class ErrorResponse
-    {
-        public string[] Errors { get; set; }
-    }
+    private record ErrorResponse(string[] Errors);
 }
 
-public class RegisterResult
+public record RegisterResult(bool Success)
 {
-    public bool Success { get; set; }
     public string[] Errors { get; set; } = Array.Empty<string>();
 }

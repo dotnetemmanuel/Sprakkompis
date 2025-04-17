@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -21,6 +21,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Sprakkompis.Core\Sprakkompis.Core.csproj" />
     <ProjectReference Include="..\Sprakkompis.Infrastructure\Sprakkompis.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Authentication\" />
   </ItemGroup>
 
 </Project>

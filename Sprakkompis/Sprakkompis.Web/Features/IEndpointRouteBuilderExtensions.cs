@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Sprakkompis.Web.Endpoints;
+namespace Sprakkompis.Web.Features;
 
 public static class IEndpointRouteBuilderExtensions
 {

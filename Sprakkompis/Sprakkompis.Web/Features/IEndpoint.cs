@@ -1,4 +1,4 @@
-﻿namespace Sprakkompis.Web.Endpoints;
+﻿namespace Sprakkompis.Web.Features;
 
 public interface IEndpoint
 {

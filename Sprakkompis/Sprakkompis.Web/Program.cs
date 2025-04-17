@@ -6,6 +6,9 @@ using Scalar.AspNetCore;
 using Sprakkompis.Core.Entities;
 using Sprakkompis.Infrastructure.Data;
 using Sprakkompis.Web.Components;
+using Sprakkompis.Web.Features;
+using Sprakkompis.Web.Features.Identity.Login;
+using Sprakkompis.Web.Features.Identity.Register;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,7 +68,8 @@ builder.Services.Configure<JsonOptions>(options =>
 });
 
 builder.Services.AddOpenApi();
-
+builder.Services.AddHttpClient<RegisterService>();
+builder.Services.AddHttpClient<LoginService>();
 
 var app = builder.Build();
 
@@ -95,5 +99,7 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+
+app.MapEndpoints<Program>();
 
 app.Run();

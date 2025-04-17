@@ -1,5 +1,42 @@
-﻿<img class="sprakkompis_logo" src="./images/språkkompis_logo_3d.png" />
+﻿@using Sprakkompis.Web.Features.Identity.Logout
+@inject LogoutService LogoutService;
+@inject AuthenticationStateProvider AuthStateProvider
+
+<div class="header-container">
+    <a href="/" class="header-branding">
+        <img class="sprakkompis_logo" src="./images/språkkompis.png"/>
+        <h2 class="sprakkompis_name">SPRÅKKOMPIS</h2>
+    </a>
+    <div class="header-menu">
+        @if (_isAuthenticated)
+        {
+            <MudMenu Icon="@Icons.Material.Filled.Menu">
+                <MudMenuItem OnClick="LogoutAsync">Log out</MudMenuItem>
+            </MudMenu>
+        }
+        else
+        {
+            <MudMenu Icon="@Icons.Material.Filled.Menu">
+                <MudMenuItem Href="/register">Register</MudMenuItem>
+                <MudMenuItem Href="/login">Log In</MudMenuItem>
+            </MudMenu>
+        }
+    </div>
+</div>
 
 @code {
+    private bool _isAuthenticated;
+    private string _username = string.Empty;
 
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        _isAuthenticated = authState.User.Identity?.IsAuthenticated ?? false;
+        _username = authState.User.Identity?.Name ?? "User";
+    }
+
+    public async Task LogoutAsync()
+    {
+        var response = await LogoutService.LogoutAsync();
+    }
 }

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +10,13 @@ using Sprakkompis.Infrastructure.Data;
 using Sprakkompis.Web.Components;
 using Sprakkompis.Web.Features;
 using Sprakkompis.Web.Features.Identity.Login;
+using Sprakkompis.Web.Features.Identity.Logout;
 using Sprakkompis.Web.Features.Identity.Register;
 using System.Text.Json.Serialization;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddMudServices();
 
 var logger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger("Program");
 
@@ -32,13 +37,13 @@ if (connectionString is not null)
 }
 else
 {
-        logger.LogError("Connection string 'DefaultConnection' not found in configuration");
-
+    logger.LogError("Connection string 'DefaultConnection' not found in configuration");
 }
 
-    // Add services to the container.
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
+
+// Add services to the container.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseNpgsql(connectionString));
 
 builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
 {
@@ -56,10 +61,14 @@ builder.Services.AddIdentityApiEndpoints<ApplicationUser>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
+
+
+builder.Services.AddAuthenticationCore();
+builder.Services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
+builder.Services.AddAuthorization();
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
-builder.Services.AddAuthorization();
 
 builder.Services.Configure<JsonOptions>(options =>
 {
@@ -70,6 +79,7 @@ builder.Services.Configure<JsonOptions>(options =>
 builder.Services.AddOpenApi();
 builder.Services.AddHttpClient<RegisterService>();
 builder.Services.AddHttpClient<LoginService>();
+builder.Services.AddHttpClient<LogoutService>();
 
 var app = builder.Build();
 
@@ -99,6 +109,7 @@ app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
+    
 
 app.MapEndpoints<Program>();
 

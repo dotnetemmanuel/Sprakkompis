@@ -1,3 +1,55 @@
-﻿.sprakkompis_logo{
-    width: 50px;
+﻿.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.header-branding {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    letter-spacing: 2px;
+    width: 12rem;
+}
+
+.header-branding:visited{
+    text-decoration: none;
+    color: var(--dark);
+}
+
+.header-branding:hover{
+    text-decoration: none;
+    color: var(--dark);
+}
+
+.sprakkompis_logo {
+    height: 40px;
+    width: 40px;
+}
+
+.sprakkompis_name{
+    font-family: var(--inter);
+}
+
+.header-menu {
+    display: flex;
+    gap: 1rem;
+    position: relative;
+}
+
+    a:visited {
+        color: var(--dark);
+    }
+
+    a:hover {
+        text-decoration: underline;
+        text-underline-offset: 1px;
+        font-weight: 800;
+    }
+    
+
+
+@media (min-width: 768px) {
+    
 }

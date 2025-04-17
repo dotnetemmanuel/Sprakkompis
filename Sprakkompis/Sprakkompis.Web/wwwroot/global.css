@@ -1,0 +1,30 @@
+﻿:root {
+    --light: #faf4ed;
+    --dark: #26233a;
+    --blue: #286983;
+    --green: #56949f;
+    --orange: #ea9d34;
+    --pink: #b4637a;
+    --purple: #907aa9;
+    --inter: "Inter", sans-serif;
+    --recursive: "Recursive", monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: var(--dark);
+}
+
+body {
+    background-color: var(--light);
+    font-family: var(--recursive);
+}
+
+.mud-menu-item.menu-items {
+    font-family: var(--inter);
+    font-weight: 700;
+    color: var(--pink) !important;
+}
+

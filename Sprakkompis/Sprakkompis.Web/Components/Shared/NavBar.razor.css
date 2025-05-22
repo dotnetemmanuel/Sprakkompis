@@ -13,12 +13,12 @@
     width: 12rem;
 }
 
-.header-branding:visited{
+.header-branding:visited {
     text-decoration: none;
     color: var(--dark);
 }
 
-.header-branding:hover{
+.header-branding:hover {
     text-decoration: none;
     color: var(--dark);
 }
@@ -28,8 +28,8 @@
     width: 40px;
 }
 
-.sprakkompis_name{
-    font-family: var(--inter);
+.sprakkompis_name {
+    font-family: var(--bogart);
 }
 
 .header-menu {
@@ -38,18 +38,16 @@
     position: relative;
 }
 
-    a:visited {
-        color: var(--dark);
-    }
+a:visited {
+    color: var(--dark);
+}
 
-    a:hover {
-        text-decoration: underline;
-        text-underline-offset: 1px;
-        font-weight: 800;
-    }
-    
-
+a:hover {
+    text-decoration: underline;
+    text-underline-offset: 1px;
+    font-weight: 800;
+}
 
 @media (min-width: 768px) {
-    
+
 }

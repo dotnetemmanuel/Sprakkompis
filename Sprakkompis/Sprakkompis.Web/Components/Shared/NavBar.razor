@@ -11,14 +11,14 @@
         @if (_isAuthenticated)
         {
             <MudMenu Icon="@Icons.Material.Filled.Menu">
-                <MudMenuItem OnClick="LogoutAsync">Log out</MudMenuItem>
+                <MudMenuItem Class="menu-items" OnClick="LogoutAsync">Log out</MudMenuItem>
             </MudMenu>
         }
         else
         {
             <MudMenu Icon="@Icons.Material.Filled.Menu">
-                <MudMenuItem Href="/register">Register</MudMenuItem>
-                <MudMenuItem Href="/login">Log In</MudMenuItem>
+                <MudMenuItem Class="menu-items" Href="/register"><MudText Typo="Typo.body1">Register</MudText></MudMenuItem>
+                <MudMenuItem Class="menu-items" Href="/login"><MudText Typo="Typo.body2">Login</MudText></MudMenuItem>
             </MudMenu>
         }
     </div>
